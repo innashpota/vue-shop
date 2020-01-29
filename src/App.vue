@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <div class="nav-bar"></div>
-    <Product product="Socks" 
-             image="https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg"
-             link="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks"
-             inStock="true"
-             onSale="true"/>
+    <Product product="Socks"/>
   </div>
 </template>
 

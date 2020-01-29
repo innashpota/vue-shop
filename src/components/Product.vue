@@ -9,19 +9,47 @@
       <p v-if="inStock">In Stock</p>
       <p v-else>Out of Stock</p>
       <span v-if="onSale">On Sale!</span>
+
+      <ul>
+        <li v-for="detail in details"  :key="detail">{{ detail }}</li>
+      </ul>
+
+      <ul>
+        <li v-for="size in sizes"  :key="size">{{ size }}</li>
+      </ul>
+
+      <div v-for="variant in variants" :key="variant.variantId">
+        <p>{{ variant.variantColor }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+      return {
+        image: "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
+        link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
+        inStock: true,
+        onSale: false,
+        details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+        variants: [
+            {
+                variantId: 2234,
+                variantColor: 'green'    
+            },
+            {
+                variantId: 2235,
+                variantColor: 'blue'
+            }
+        ],
+        sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
+    }
+  },
   name: "Product",
   props: {
-    product: String,
-    image: String,
-    link: String,
-    inStock: Boolean,
-    onSale: Boolean
+    product: String
   }
 };
 </script>

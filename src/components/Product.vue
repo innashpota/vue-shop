@@ -6,7 +6,9 @@
 
     <div class="product-info">
       <h1>{{ product }}</h1>
-      <a :href="link" target="_blank"> More products like this </a>
+      <p v-if="inStock">In Stock</p>
+      <p v-else>Out of Stock</p>
+      <span v-if="onSale">On Sale!</span>
     </div>
   </div>
 </template>
@@ -17,7 +19,9 @@ export default {
   props: {
     product: String,
     image: String,
-    link: String
+    link: String,
+    inStock: Boolean,
+    onSale: Boolean
   }
 };
 </script>

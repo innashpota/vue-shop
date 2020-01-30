@@ -11,15 +11,22 @@
       <span v-if="onSale">On Sale!</span>
 
       <ul>
-        <li v-for="detail in details"  :key="detail">{{ detail }}</li>
+        <li v-for="detail in details" :key="detail">{{ detail }}</li>
       </ul>
 
       <ul>
-        <li v-for="size in sizes"  :key="size">{{ size }}</li>
+        <li v-for="size in sizes" :key="size">{{ size }}</li>
       </ul>
 
       <div v-for="variant in variants" :key="variant.variantId">
-        <p>{{ variant.variantColor }}</p>
+        <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+      </div>
+
+      <button v-on:click="addToCart">Add to cart</button>
+      <button @click="removeFromCart">Remove from cart</button>
+
+      <div class="cart">
+        <p>Cart({{ cart }})</p>
       </div>
     </div>
   </div>
@@ -27,29 +34,45 @@
 
 <script>
 export default {
-  data() {
-      return {
-        image: "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
-        link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
-        inStock: true,
-        onSale: false,
-        details: ['80% cotton', '20% polyester', 'Gender-neutral'],
-        variants: [
-            {
-                variantId: 2234,
-                variantColor: 'green'    
-            },
-            {
-                variantId: 2235,
-                variantColor: 'blue'
-            }
-        ],
-        sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL']
-    }
-  },
   name: "Product",
   props: {
     product: String
+  },
+  data() {
+    return {
+      image:
+        "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
+      inStock: true,
+      onSale: false,
+      details: ["80% cotton", "20% polyester", "Gender-neutral"],
+      variants: [
+        {
+          variantId: 2234,
+          variantColor: "green",
+          variantImage:
+            "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg"
+        },
+        {
+          variantId: 2235,
+          variantColor: "blue",
+          variantImage:
+            "https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg"
+        }
+      ],
+      sizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
+      cart: 0
+    };
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1;
+    },
+    updateProduct(variantImage) {
+      this.image = variantImage;
+    },
+    removeFromCart() {
+      this.cart -= 1;
+    }
   }
 };
 </script>
@@ -64,7 +87,7 @@ img {
   border: 1px solid #d8d8d8;
   width: 70%;
   margin: 40px;
-  box-shadow: 0px .5px 1px #d8d8d8;
+  box-shadow: 0px 0.5px 1px #d8d8d8;
 }
 
 .product-image {
@@ -92,12 +115,12 @@ img {
 button {
   margin-top: 30px;
   border: none;
-  background-color: #1E95EA;
+  background-color: #1e95ea;
   color: white;
   height: 40px;
   width: 100px;
   font-size: 14px;
-} 
+}
 
 .disabledButton {
   background-color: #d8d8d8;
@@ -106,11 +129,11 @@ button {
 .review-form {
   width: 30%;
   padding: 20px;
-  border: 1px solid #d8d8d8;  
+  border: 1px solid #d8d8d8;
 }
 
 input {
-  width: 100%;  
+  width: 100%;
   height: 25px;
   margin-bottom: 20px;
 }

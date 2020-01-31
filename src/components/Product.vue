@@ -9,14 +9,11 @@
       <p v-if="inStock">In Stock</p>
       <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
       <p>{{ sale }}</p>
+      <p>Shipping : {{ shipping }}</p>
 
-      <ul>
-        <li v-for="detail in details" :key="detail">{{ detail }}</li>
-      </ul>
+      <ProductDetails :details="details" />
 
-      <ul>
-        <li v-for="size in sizes" :key="size">{{ size }}</li>
-      </ul>
+      <ProductSizes :sizes="sizes" />
 
       <div
         v-for="(variant, index) in variants"
@@ -31,7 +28,7 @@
         :disabled="!inStock"
         :class="{ disabledButton: !inStock }"
       >Add to cart</button>
-      <button 
+      <button
         @click="removeFromCart"
         :disabled="cart <= 0"
         :class="{ disabledButton: cart <= 0 }"
@@ -45,10 +42,24 @@
 </template>
 
 <script>
+import ProductDetails from "./ProductDetails.vue";
+import ProductSizes from "./ProductSizes.vue";
 export default {
   name: "Product",
+  components: {
+    ProductDetails,
+    ProductSizes
+  },
   props: {
-    product: String
+    premium: {
+      type: Boolean,
+      required: true
+    },
+    product: {
+      type: String,
+      required: true,
+      default: "Socks"
+    }
   },
   data() {
     return {
@@ -102,6 +113,9 @@ export default {
         return this.brand + " " + this.product + " are on sale!";
       }
       return this.brand + " " + this.product + " are not on sale";
+    },
+    shipping() {
+      return this.premium ? "Free" : "2.99";
     }
   }
 };

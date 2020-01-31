@@ -34,17 +34,33 @@
         :class="{ disabledButton: cart.length === 0 }"
       >Remove from cart</button>
     </div>
+
+    <div class="reviews">
+      <p v-if="!reviews.length">There are no reviews yet.</p>
+      <ul v-else>
+        <li v-for="(review, index) in reviews" :key="index">
+          <p>{{ review.name }}</p>
+          <p>Rating: {{ review.rating }}</p>
+          <p>Review: {{ review.review }}</p>
+          <p>Recommend: {{ review.recommend }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <ProductReview @review-submitted="addReview" />
   </div>
 </template>
 
 <script>
 import ProductDetails from "./ProductDetails.vue";
 import ProductSizes from "./ProductSizes.vue";
+import ProductReview from "./ProductReview.vue";
 export default {
   name: "Product",
   components: {
     ProductDetails,
-    ProductSizes
+    ProductSizes,
+    ProductReview
   },
   props: {
     premium: {
@@ -83,7 +99,8 @@ export default {
           variantQuantity: 0
         }
       ],
-      sizes: ["S", "M", "L", "XL", "XXL", "XXXL"]
+      sizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
+      reviews: []
     };
   },
   methods: {
@@ -95,6 +112,9 @@ export default {
     },
     removeFromCart() {
       this.$emit("remove-from-cart", this.selectedVariantId);
+    },
+    addReview(productReview) {
+      this.reviews.push(productReview);
     }
   },
   computed: {
@@ -117,7 +137,7 @@ export default {
       return this.premium ? "Free" : "2.99";
     },
     selectedVariantId() {
-        return this.variants[this.selectedVariant].variantId;
+      return this.variants[this.selectedVariant].variantId;
     }
   }
 };
@@ -127,6 +147,8 @@ export default {
 <style scoped>
 .product {
   display: flex;
+  flex-flow: wrap;
+  padding: 1rem;
 }
 
 img {
@@ -137,12 +159,13 @@ img {
 }
 
 .product-image {
-  flex-basis: 700px;
+  width: 80%;
 }
 
+.product-image,
 .product-info {
   margin-top: 10px;
-  flex-basis: 500px;
+  width: 50%;
 }
 
 .color-box {
@@ -166,20 +189,7 @@ button {
   background-color: #d8d8d8;
 }
 
-.review-form {
-  width: 30%;
-  padding: 20px;
-  border: 1px solid #d8d8d8;
-}
-
-input {
-  width: 100%;
-  height: 25px;
-  margin-bottom: 20px;
-}
-
-textarea {
-  width: 100%;
-  height: 60px;
+.reviews {
+  width: 47%;
 }
 </style>

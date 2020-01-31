@@ -30,13 +30,9 @@
       >Add to cart</button>
       <button
         @click="removeFromCart"
-        :disabled="cart <= 0"
-        :class="{ disabledButton: cart <= 0 }"
+        :disabled="cart.length === 0"
+        :class="{ disabledButton: cart.length === 0 }"
       >Remove from cart</button>
-
-      <div class="cart">
-        <p>Cart({{ cart }})</p>
-      </div>
     </div>
   </div>
 </template>
@@ -59,6 +55,10 @@ export default {
       type: String,
       required: true,
       default: "Socks"
+    },
+    cart: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -83,19 +83,18 @@ export default {
           variantQuantity: 0
         }
       ],
-      sizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
-      cart: 0
+      sizes: ["S", "M", "L", "XL", "XXL", "XXXL"]
     };
   },
   methods: {
     addToCart() {
-      this.cart += 1;
+      this.$emit("add-to-cart", this.selectedVariantId);
     },
     updateProduct(index) {
       this.selectedVariant = index;
     },
     removeFromCart() {
-      this.cart -= 1;
+      this.$emit("remove-from-cart", this.selectedVariantId);
     }
   },
   computed: {
@@ -116,6 +115,9 @@ export default {
     },
     shipping() {
       return this.premium ? "Free" : "2.99";
+    },
+    selectedVariantId() {
+        return this.variants[this.selectedVariant].variantId;
     }
   }
 };
@@ -149,20 +151,14 @@ img {
   margin-top: 5px;
 }
 
-.cart {
-  margin-right: 25px;
-  float: right;
-  border: 1px solid #d8d8d8;
-  padding: 5px 20px;
-}
-
 button {
   margin-top: 30px;
+  margin-right: 5px;
   border: none;
   background-color: #1e95ea;
   color: white;
   height: 40px;
-  width: 100px;
+  width: 150px;
   font-size: 14px;
 }
 

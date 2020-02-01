@@ -9,11 +9,8 @@
       <p v-if="inStock">In Stock</p>
       <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
       <p>{{ sale }}</p>
-      <p>Shipping : {{ shipping }}</p>
 
-      <ProductDetails :details="details" />
-
-      <ProductSizes :sizes="sizes" />
+      <InfoTabs :shipping="shipping" :details="details" :sizes="sizes" />
 
       <div
         v-for="(variant, index) in variants"
@@ -35,32 +32,20 @@
       >Remove from cart</button>
     </div>
 
-    <div class="reviews">
-      <p v-if="!reviews.length">There are no reviews yet.</p>
-      <ul v-else>
-        <li v-for="(review, index) in reviews" :key="index">
-          <p>{{ review.name }}</p>
-          <p>Rating: {{ review.rating }}</p>
-          <p>Review: {{ review.review }}</p>
-          <p>Recommend: {{ review.recommend }}</p>
-        </li>
-      </ul>
-    </div>
-
-    <ProductReview @review-submitted="addReview" />
+    <ProductTabs :reviews="reviews" />
   </div>
 </template>
 
 <script>
-import ProductDetails from "./ProductDetails.vue";
-import ProductSizes from "./ProductSizes.vue";
-import ProductReview from "./ProductReview.vue";
+import ProductTabs from "./ProductTabs.vue";
+import InfoTabs from "./InfoTabs.vue";
+import { eventBus } from "../main.js";
+
 export default {
   name: "Product",
   components: {
-    ProductDetails,
-    ProductSizes,
-    ProductReview
+    ProductTabs,
+    InfoTabs
   },
   props: {
     premium: {
@@ -69,7 +54,6 @@ export default {
     },
     product: {
       type: String,
-      required: true,
       default: "Socks"
     },
     cart: {
@@ -112,9 +96,6 @@ export default {
     },
     removeFromCart() {
       this.$emit("remove-from-cart", this.selectedVariantId);
-    },
-    addReview(productReview) {
-      this.reviews.push(productReview);
     }
   },
   computed: {
@@ -139,6 +120,11 @@ export default {
     selectedVariantId() {
       return this.variants[this.selectedVariant].variantId;
     }
+  },
+  mounted() {
+    eventBus.$on("review-submitted", productReview => {
+      this.reviews.push(productReview);
+    });
   }
 };
 </script>

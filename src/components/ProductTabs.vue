@@ -52,13 +52,5 @@ export default {
 </script>
 
 <style scoped>
-.tabs {
-  margin-left: 20px;
-  cursor: pointer;
-}
-
-.activeTab {
-  color: #16c0b0;
-  text-decoration: underline;
-}
+@import '../style/tabs.css';
 </style>

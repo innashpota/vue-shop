@@ -85,33 +85,5 @@ export default {
 </script>
 
 <style scoped>
-.review-form {
-  width: 400px;
-  padding: 20px;
-  margin: 40px;
-  border: 1px solid #d8d8d8;
-  font-size: 14px;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-}
-
-input {
-  width: 100%;
-  height: 25px;
-  margin-bottom: 20px;
-}
-
-textarea {
-  width: 100%;
-  height: 60px;
-}
-
-.submit {
-    font-size: 14px;
-    background-color: #1e95ea;
-    color: white;
-}
+@import '../style/review.css';
 </style>

@@ -131,51 +131,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.product {
-  display: flex;
-  flex-flow: wrap;
-  padding: 1rem;
-}
-
-img {
-  border: 1px solid #d8d8d8;
-  width: 70%;
-  margin: 40px;
-  box-shadow: 0px 0.5px 1px #d8d8d8;
-}
-
-.product-image {
-  width: 80%;
-}
-
-.product-image,
-.product-info {
-  margin-top: 10px;
-  width: 50%;
-}
-
-.color-box {
-  width: 40px;
-  height: 40px;
-  margin-top: 5px;
-}
-
-button {
-  margin-top: 30px;
-  margin-right: 5px;
-  border: none;
-  background-color: #1e95ea;
-  color: white;
-  height: 40px;
-  width: 150px;
-  font-size: 14px;
-}
-
-.disabledButton {
-  background-color: #d8d8d8;
-}
-
-.reviews {
-  width: 47%;
-}
+@import '../style/products.css';
 </style>

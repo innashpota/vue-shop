@@ -1,24 +1,19 @@
-# vue-project
+Vue Shop
+========
 
-## Project setup
-```
-npm install
-```
+A Webshop application written with Vue.js.
+This is an application developt through the Vue course from 
+[the official site](https://www.vuemastery.com/courses/intro-to-vue-js/tabs).
 
-### Compiles and hot-reloads for development
-```
+![main-window](./samples/main-page.png)
+
+## Build and Run
+
+Execute:
+
+```sh
+npm install 
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The application will be accessible on http://localhost:8080.
